@@ -148,7 +148,7 @@ with tab1:
             bmi,
             blood_pressure,
             insulin,
-            prediction,
+            float(prediction)
             result
         )
 
