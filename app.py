@@ -331,13 +331,14 @@ with tab2:
 
     st.markdown("### Patient Risk Visualization")
 
+    df = df.dropna()
+
     scatter = px.scatter(
         df,
         x="Age",
         y="BMI",
         color="Prediction",
-        size="Glucose",
-        hover_data=["Name"]
+        size="Glucose"
     )
 
     st.plotly_chart(scatter)
