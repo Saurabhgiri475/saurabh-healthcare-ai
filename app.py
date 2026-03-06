@@ -39,7 +39,7 @@ model = load_model()
 # login
 if "user" not in st.session_state:
 
-    col1, col2 = st.columns([1,8] , vertical_alignment="center")
+    col1, col2 = st.columns([1,8] )
 
     with col1:
         st.image("logo.png", width=140 )
