@@ -140,7 +140,17 @@ with tab1:
 
 
         # Save patient
-        save_patient(name, glucose, bmi, age, result)
+        save_patient(
+            name,
+            age,
+            "Unknown",
+            glucose,
+            bmi,
+            blood_pressure,
+            insulin,
+            prediction,
+            result
+        )
 
 
         # Medical recommendation engine
