@@ -261,7 +261,7 @@ streamlit run app.py
 The system is deployed on **Streamlit Cloud**.
 
 ```
-https://saurabh-healthcare-ai.streamlit.app
+https://saurabh-healthcare-ai-d.streamlit.app/
 ```
 
 ---
