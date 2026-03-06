@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 
+@st.cache_data
 
 def run_automl():
 

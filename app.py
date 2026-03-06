@@ -1,3 +1,5 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -18,7 +20,11 @@ create_users_table()
 create_default_admin()
 create_patient_table()
 
-model=tf.keras.models.load_model("models/diabetes_dl_model.h5")
+@st.cache_resource
+def load_model():
+    return tf.keras.models.load_model("models/diabetes_dl_model.h5")
+
+model = load_model()
 
 
 # login

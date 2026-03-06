@@ -1,6 +1,9 @@
 import sqlite3
 import datetime
+import streamlit as st
 
+@st.cache_data
+def get_patients():
 
 # create table
 def create_patient_table():
