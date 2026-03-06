@@ -22,13 +22,19 @@ create_patient_table()
 
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model(
-        "models/diabetes_dl_model.h5",
-        compile=False
-    )
+
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(16, activation="relu", input_shape=(8,)),
+        tf.keras.layers.Dense(8, activation="relu"),
+        tf.keras.layers.Dense(1, activation="sigmoid")
+    ])
+
+    model.load_weights("models/diabetes_dl_model.h5")
+
+    return model
+
 
 model = load_model()
-
 # login
 # login
 if "user" not in st.session_state:
