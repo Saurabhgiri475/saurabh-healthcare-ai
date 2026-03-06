@@ -9,11 +9,14 @@ def get_connection():
 
 
 def create_patient_table():
+
     conn = get_connection()
     cursor = conn.cursor()
 
+    cursor.execute("DROP TABLE IF EXISTS patients")
+
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS patients (
+    CREATE TABLE patients (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         age INTEGER,
@@ -29,7 +32,6 @@ def create_patient_table():
 
     conn.commit()
     conn.close()
-
 
 def save_patient(name, age, gender, glucose, bmi, blood_pressure, insulin, probability, risk):
     conn = get_connection()
