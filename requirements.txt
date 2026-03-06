@@ -1,9 +1,9 @@
-
 streamlit
+tensorflow-cpu==2.15.0
 pandas
 numpy
+plotly
 scikit-learn
-tensorflow
-shap
-openai
+pillow
 reportlab
+qrcode
