@@ -1,25 +1,29 @@
 import sqlite3
-import datetime
-import streamlit as st
+import pandas as pd
 
-@st.cache_data
-def get_patients():
+DB_NAME = "hospital.db"
 
-# create table
+
+def get_connection():
+    return sqlite3.connect(DB_NAME, check_same_thread=False)
+
+
 def create_patient_table():
+    conn = get_connection()
+    cursor = conn.cursor()
 
-    conn = sqlite3.connect("hospital.db")
-    c = conn.cursor()
-
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS patients(
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS patients (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
+        age INTEGER,
+        gender TEXT,
         glucose REAL,
         bmi REAL,
-        age INTEGER,
-        prediction TEXT,
-        date TEXT
+        blood_pressure REAL,
+        insulin REAL,
+        diabetes_probability REAL,
+        risk_level TEXT
     )
     """)
 
@@ -27,33 +31,22 @@ def create_patient_table():
     conn.close()
 
 
-# save patient
-def save_patient(name, glucose, bmi, age, prediction):
+def save_patient(name, age, gender, glucose, bmi, blood_pressure, insulin, probability, risk):
+    conn = get_connection()
+    cursor = conn.cursor()
 
-    conn = sqlite3.connect("hospital.db")
-    c = conn.cursor()
-
-    today = datetime.datetime.now()
-
-    c.execute("""
-    INSERT INTO patients(name,glucose,bmi,age,prediction,date)
-    VALUES(?,?,?,?,?,?)
-    """,(name,glucose,bmi,age,prediction,today))
+    cursor.execute("""
+    INSERT INTO patients
+    (name, age, gender, glucose, bmi, blood_pressure, insulin, diabetes_probability, risk_level)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (name, age, gender, glucose, bmi, blood_pressure, insulin, probability, risk))
 
     conn.commit()
     conn.close()
 
 
-# fetch patients
 def get_patients():
-
-    conn = sqlite3.connect("hospital.db")
-    c = conn.cursor()
-
-    c.execute("SELECT * FROM patients")
-
-    data = c.fetchall()
-
+    conn = get_connection()
+    df = pd.read_sql_query("SELECT * FROM patients", conn)
     conn.close()
-
-    return data
+    return df
